@@ -1,0 +1,35 @@
+{
+  "name": "insta-youtube-videodownloader",
+  "version": "1.0.0",
+  "description": "This is video downloader bot. This bot loaded videos from Instagram, youtube",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
+    "test": "test"
+  },
+  "keywords": [
+    "[youtube",
+    "instagram",
+    "telegraf",
+    "videodownloader]"
+  ],
+  "author": "akbarcoder",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@juliendu11/instagram-downloader": "^0.2.0",
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "instagram-save": "^1.3.2",
+    "telegraf": "^4.4.1",
+    "ytdl-core": "^4.9.1"
+  },
+  "engines": {
+    "node": "14.x"
+  }
+}

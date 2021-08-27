@@ -1,0 +1,8 @@
+Test reg ex. For check url - a = /^(http)|(https)/i
+##Buttons 
+Markup.inlineKeyboard([qualities1]).resize()
+parse_mode: "Markdown",
+        ...Markup.inlineKeyboard(qualities1).resize(),
+        ${url} - Men sizga ushbu videoni quyidagi sifatlarda yuklab bera olaman...
+Quyidan tanlang:
+       ${text}
