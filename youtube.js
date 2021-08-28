@@ -52,10 +52,10 @@ async function download(url, itag, id, isMp3) {
   var endVideo = new Promise((resolve, reject) => {
     ffmpeg()
       .addInput(videoReadableStream)
-      .addInput("./youtube/" + id + ".mp3")
-      .saveToFile(`./youtube/${id}.mp4`)
+      .addInput("youtube/" + id + ".mp3")
+      .saveToFile(`youtube/${id}.mp4`)
       .on("end", () => {
-        resolve(`./youtube/${id}.mp4`);
+        resolve(`youtube/${id}.mp4`);
       });
   });
   res = await endVideo;
