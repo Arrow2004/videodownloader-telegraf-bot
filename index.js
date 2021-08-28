@@ -8,7 +8,23 @@ const { type } = require("os");
 env.config();
 
 const bot = new Telegraf(process.env.token);
-bot.start((ctx) => ctx.reply("Welcome"));
+bot.start(async (ctx) => {
+  const newUser = {
+    id: ctx.chat.id,
+    firstName: ctx.chat.first_name,
+    lastName: ctx.chat.last_name,
+    userName: ctx.chat.username,
+    inviteLink: `tg://user?id=${ctx.chat.id}`,
+    userType: ctx.chat.type,
+  };
+  await ctx.replyWithHTML(
+    `Assalomu alaykum <a href="${newUser.inviteLink}">${newUser.firstName}</a>. Botimga xush  kelibsiz!!! 
+    Ushbu bot yordamida siz instagramdan va youtubedan rasm va videolarni yuklashingiz mumkin(Instagramdan yuklash borasida ba'zi muammolar bor. Bu muammolar tez orada tuzatiladi)
+    <b>Bot versiyasi: <u>1.0.1</u></b>
+    Bot haqidagi fikrlar uchun: @arrow2004
+    Kuzatib boring: @akbarcoder`
+  );
+});
 bot.on("text", async (ctx) => {
   let url = ctx.message.text;
   console.log(`${testUrl(url)} ${testYoutube(url)} ${testInsta(url)}`);
@@ -19,6 +35,7 @@ bot.on("text", async (ctx) => {
     );
   }
   if (testYoutube(url)) {
+    ctx.reply("Video malumotlarini olinmoqda iltimos kuting...");
     const videoInfo = await getInfo(url);
     let qualities1 = [];
     let text = "\n";
@@ -74,6 +91,8 @@ bot.on("text", async (ctx) => {
 
 // Calbacks for youtube
 bot.action(/i137_+/, async (ctx) => {
+  console.log;
+  ctx.reply("Yuklash boshlandi...");
   console.log("Men ishladim 137");
   url = ctx.match.input.substr(5);
   console.log(url + " " + ctx.chat.id);
@@ -93,6 +112,7 @@ bot.action(/i137_+/, async (ctx) => {
   });
 });
 bot.action(/i136_+/, async (ctx) => {
+  ctx.reply("Yuklash boshlandi...");
   console.log("Men ishladim 136");
   url = ctx.match.input.substr(5);
   console.log(url + " " + ctx.chat.id);
@@ -112,6 +132,7 @@ bot.action(/i136_+/, async (ctx) => {
   });
 });
 bot.action(/i135_+/, async (ctx) => {
+  ctx.reply("Yuklash boshlandi...");
   console.log("Men ishladim 135");
   url = ctx.match.input.substr(5);
   console.log(url + " " + ctx.chat.id);
@@ -131,6 +152,7 @@ bot.action(/i135_+/, async (ctx) => {
   });
 });
 bot.action(/i18_+/, async (ctx) => {
+  ctx.reply("Yuklash boshlandi...");
   console.log("Men ishladim 18");
   url = ctx.match.input.substr(4);
   console.log(url + " " + ctx.chat.id);
@@ -150,6 +172,7 @@ bot.action(/i18_+/, async (ctx) => {
   });
 });
 bot.action(/i133_+/, async (ctx) => {
+  ctx.reply("Yuklash boshlandi...");
   console.log("Men ishladim 133");
   url = ctx.match.input.substr(5);
   console.log(url + " " + ctx.chat.id);
@@ -169,6 +192,7 @@ bot.action(/i133_+/, async (ctx) => {
   });
 });
 bot.action(/i140_+/, async (ctx) => {
+  ctx.reply("Yuklash boshlandi...");
   console.log("Men ishladim 140");
   url = ctx.match.input.substr(5);
   console.log(url + " " + ctx.chat.id);

@@ -2,6 +2,7 @@ const fs = require("fs");
 const ytdl = require("ytdl-core");
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const ffmpeg = require("fluent-ffmpeg");
+const { unlink } = require("fs/promises");
 ffmpeg.setFfmpegPath(ffmpegPath);
 async function getInfo(url) {
   qualities = [140, 133, 18, 135, 136, 137];
@@ -24,41 +25,61 @@ async function getInfo(url) {
 }
 
 async function download(url, itag, id, isMp3) {
-  var audio = ytdl(url, {
-    filter: (format) => format.itag === 140,
-  });
-  var audioWritable = fs.createWriteStream("youtube/" + id + ".mp3");
-  var stream = audio.pipe(audioWritable);
   var endAudio = new Promise((resolve, reject) => {
+    if (itag == 18) {
+      return resolve(null);
+    }
+    var audio = ytdl(url, {
+      filter: (format) => format.itag === 140,
+    });
+    var audioWritable = fs.createWriteStream("youtube/" + id + ".mp3");
+    let stream = audio.pipe(audioWritable);
     stream.on("error", (err) => {
       console.log(err);
       return false;
     });
     stream.on("finish", () => {
       if (isMp3) {
-        resolve("youtube/" + id + ".mp3");
+        return resolve("youtube/" + id + ".mp3");
       } else {
-        resolve(false);
+        return resolve(false);
       }
     });
   });
   let res = await endAudio;
+  console.log(res);
   if (res) {
     return res;
   }
-  var videoReadableStream = ytdl(url, {
-    filter: (format) => format.itag === itag,
-  });
   var endVideo = new Promise((resolve, reject) => {
-    ffmpeg()
-      .addInput(videoReadableStream)
-      .addInput("youtube/" + id + ".mp3")
-      .saveToFile(`youtube/${id}.mp4`)
-      .on("end", () => {
-        resolve(`youtube/${id}.mp4`);
-      });
+    var videoReadableStream = ytdl(url, {
+      filter: (format) => format.itag === itag,
+    });
+    if (res == null) {
+      console.log("Men ishlashni boshladim...");
+      videoReadableStream
+        .pipe(fs.createWriteStream(`youtube/${id}.mp4`))
+        .on("ready", () => {
+          console.log("ready");
+        })
+        .on("finish", function () {
+          console.log("Men tugadim");
+          return resolve(`youtube/${id}.mp4`);
+        });
+      console.log("Event kutmadi");
+    } else {
+      ffmpeg()
+        .addInput(videoReadableStream)
+        .addInput(`youtube/${id}.mp3`)
+        .saveToFile(`youtube/${id}.mp4`)
+        .on("end", async () => {
+          await unlink(`youtube/${id}.mp3`);
+          return resolve(`youtube/${id}.mp4`);
+        });
+    }
   });
   res = await endVideo;
+  console.log(res);
   return endVideo;
 }
 module.exports = { download, getInfo };
