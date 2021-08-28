@@ -27,7 +27,7 @@ async function download(url, itag, id, isMp3) {
   var audio = ytdl(url, {
     filter: (format) => format.itag === 140,
   });
-  var audioWritable = fs.createWriteStream("./youtube/" + id + ".mp3");
+  var audioWritable = fs.createWriteStream("youtube/" + id + ".mp3");
   var stream = audio.pipe(audioWritable);
   var endAudio = new Promise((resolve, reject) => {
     stream.on("error", (err) => {
@@ -36,7 +36,7 @@ async function download(url, itag, id, isMp3) {
     });
     stream.on("finish", () => {
       if (isMp3) {
-        resolve("./youtube/" + id + ".mp3");
+        resolve("youtube/" + id + ".mp3");
       } else {
         resolve(false);
       }
