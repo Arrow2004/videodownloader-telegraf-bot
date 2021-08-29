@@ -40,7 +40,7 @@ bot.on("text", async (ctx) => {
     let qualities1 = [];
     let text = "\n";
     for (const e of videoInfo) {
-      text += `${e.quality}  - ${e.apporxSize}`;
+      text += `${e.quality}  - ${e.apporxSize} - ${e.itag}`;
       text += "\n";
       qualities1.push(Markup.button.callback(e.quality, `i${e.itag}_${url}`));
       /* qualities1.length < 3

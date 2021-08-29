@@ -5,7 +5,7 @@ const ffmpeg = require("fluent-ffmpeg");
 const { unlink } = require("fs/promises");
 ffmpeg.setFfmpegPath(ffmpegPath);
 async function getInfo(url) {
-  qualities = [140, 133, 18, 135, 136, 137];
+  qualities = [140, 133, 18, 135, 136];
   resFormats = [];
   info = await ytdl.getInfo(url);
   info.formats.map((e) => {
