@@ -57,6 +57,9 @@ bot.on("text", async (ctx) => {
     );
   }
   if (testInsta(url)) {
+    return ctx.reply(
+      `Kechirasiz ushbu funksiyada muammolar mavjudligi sababli vaqtincha to'xtatilgan`
+    );
     if (url.indexOf("?")) {
       url = url.slice(0, url.indexOf("?"));
     }
