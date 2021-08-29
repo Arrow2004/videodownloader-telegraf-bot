@@ -62,6 +62,7 @@ bot.on("text", async (ctx) => {
     }
     let result = await instagram(url);
     console.log(result);
+    if (result.error) return ctx.reply(result.error);
     await ctx.reply("Yuklash boshlandi...\n Iltimos kuting");
     if (result.type == "Video") {
       await ctx.replyWithVideo(
