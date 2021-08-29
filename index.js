@@ -20,7 +20,7 @@ bot.start(async (ctx) => {
   await ctx.replyWithHTML(
     `Assalomu alaykum <a href="${newUser.inviteLink}">${newUser.firstName}</a>. Botimga xush  kelibsiz!!! 
     Ushbu bot yordamida siz instagramdan va youtubedan rasm va videolarni yuklashingiz mumkin(Instagramdan yuklash borasida ba'zi muammolar bor. Bu muammolar tez orada tuzatiladi)
-    <b>Bot versiyasi: <u>1.0.1</u></b>
+    <b>Bot versiyasi: <u>1.0.2</u></b>
     Bot haqidagi fikrlar uchun: @arrow2004
     Kuzatib boring: @akbarcoder`
   );
